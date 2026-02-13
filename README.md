@@ -8,8 +8,7 @@ working on a game prototype
 
 ## todo
 
-- [ ] figure out how i want to handle portal visualization
-- [ ] add walls?
+- [ ] translate bitmasked shape into visual representation
 
 ## notes
 
