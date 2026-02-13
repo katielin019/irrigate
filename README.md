@@ -17,3 +17,7 @@ const cell = {
     rotation: 0,
 }
 ```
+
+## notes
+
+- need to figure out how to handle tunnels
