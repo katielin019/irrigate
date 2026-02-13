@@ -3,14 +3,16 @@
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
- <div class="cell"
+ <div class="cell {data.portalIndex ? 'portal' : ''}"
     id="cell-{data.x}-{data.y}"
     onclick={onClick}>
     <div class="tile-content"
         style="transform: rotate({data.rotation}deg);">
-        L
+        {data.type}
     </div>
 </div>
+
+<!-- using portalIndex (and relative dimensions?), can calculate what side the portal is on (fixed! doesn't rotate with the tile) -->
 
 <style>
     .cell {
@@ -21,6 +23,10 @@
 		align-items: center;
         cursor: pointer;
         padding: 1rem;
+    }
+
+    .portal {
+        background: purple;
     }
     
     .tile-content {

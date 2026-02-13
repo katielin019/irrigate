@@ -1,5 +1,6 @@
 <script>
     import Grid from "./Grid.svelte";
+    import { levelData } from "./data.js";
 
     const ROWS = 7;
     const COLS = 7;
@@ -8,11 +9,12 @@
         x: Math.floor(i / COLS),
         y: i % COLS,
         rotation: 0,
+        type: levelData.layout[i],
+        portalIndex: levelData.portals[i] ?? null,
     })));
 
     const rotate = (idx) => {
         grid[idx].rotation += 90;
-        console.log(`Rotated cell at index ${idx} to ${grid[idx].rotation}deg`);
     };
 </script>
 
