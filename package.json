@@ -1,6 +1,5 @@
 {
-  "name": "garden-game",
-  "private": true,
+  "name": "irrigate",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

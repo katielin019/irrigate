@@ -8,7 +8,7 @@
     onclick={onClick}>
     <div class="tile-content"
         style="transform: rotate({data.rotation}deg);">
-        {data.type} / {data.shape}
+        {data.type}{data.shape}
     </div>
 </div>
 

@@ -1,4 +1,4 @@
-# garden-game
+# irrigate
 
 working on a game prototype
 
@@ -6,18 +6,14 @@ working on a game prototype
 - using vite for dev server
 - using svelte for UI: components, state synchronization
 
-## schema (cells)
+## todo
 
-```js
-const cell = {
-    id: `cell-${r}-${c}`,
-    row: r,
-    col: c,
-    type: (r === 0 && c === 0) ? 'source' : 'path',
-    rotation: 0,
-}
-```
+- [ ] figure out how i want to handle portal visualization
+- [ ] add walls?
 
 ## notes
 
-- need to figure out how to handle tunnels
+- currently only handles one plant variant; may have to update schema if i decide to add 2+ plant types
+- initial game state has all tiles facing "up"; might be nice to add some randomized rotation (that doesn't make the solution obvious)
+    - may need to actually just write the solution state and then add moves to it to perform randomization/scrambling
+    - not sure how i want to encode solution state since current data schema doesn't take orientation into account, just type and relative position (grid index)
