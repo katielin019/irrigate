@@ -8,12 +8,17 @@ export const levelData = {
         "T", "P", "L", "T", "T", "T", "T",  // 35-41
         "L", "L", "P", "L", "L", "P", "P"   // 42-48
     ],
+    rows: 7,
+    cols: 7,
     portals: {
         1: 43,  // cell index 1 teleports to index 43
         43: 1,  // backwards link for bidirectional flow
-        2: 44, 44: 2,
-        3: 45, 45: 3,
-        35: 41, 41: 35,
+        2: 44,
+        44: 2,
+        3: 45,
+        45: 3,
+        35: 41,
+        41: 35,
     }
 };
 
@@ -22,7 +27,7 @@ export const levelData = {
 // South:   4 (2^2)
 // West:    8 (2^3)
 
-export const PIPES = {
+export const SHAPES = {
     I: 5,   // N (1) + S (4)
     L: 3,   // N (1) + E (2)
     T: 7,   // N (1) + E (2) + S (4)

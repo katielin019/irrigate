@@ -8,7 +8,7 @@
     onclick={onClick}>
     <div class="tile-content"
         style="transform: rotate({data.rotation}deg);">
-        {data.type}
+        {data.type} / {data.shape}
     </div>
 </div>
 
@@ -22,7 +22,7 @@
         justify-content: space-around;
 		align-items: center;
         cursor: pointer;
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .portal {
