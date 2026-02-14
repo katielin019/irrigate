@@ -1,14 +1,19 @@
 <script>
+    import Source from "./tiles/Source.svelte";
     let { data, onClick = () => { console.log("No event callback passed"); } } = $props();
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions (because of reasons) -->
- <div class="cell {data.portalIndex ? 'portal' : ''}"
+ <div class="cell {data.portalIndex ? 'portal' : ''} {data.type ==="O" ? 'source' : ''}"
     id="cell-{data.x}-{data.y}"
     onclick={onClick}>
     <div class="tile-content"
         style="transform: rotate({data.rotation}deg);">
-        {data.type}{data.shape}
+        {#if data.type === "O"}
+            <Source rotation={data.rotation}/>
+        {:else}
+            {data.type}{data.shape}
+        {/if}
     </div>
 </div>
 
@@ -25,12 +30,18 @@
         padding: 1.5rem;
     }
 
+    .source {
+        padding: 0;
+        margin: 0;
+    }
+
     .portal {
         background: purple;
     }
     
     .tile-content {
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        color: white;
+        width: 100%;
+        height: 100%;
 	}
 </style>

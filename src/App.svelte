@@ -31,3 +31,10 @@
 <div id="app">
     <Grid cells={grid} width={COLS} onCellClick={rotate} />
 </div>
+
+<style>
+    :global(svg) {
+        max-width: 400px;
+        display: block;
+    }
+</style>
