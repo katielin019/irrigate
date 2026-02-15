@@ -9,7 +9,7 @@
         x: Math.floor(i / COLS),
         y: i % COLS,
         type: levelData.layout[i],
-        rotation: levelData.initialRotation[i],
+        rotation: 0,
         shape: SHAPES[levelData.layout[i]],
         filled: levelData.layout[i] === "O" ? true : false,
         portalIndex: levelData.portals[i] ?? null,
