@@ -11,13 +11,14 @@
         type: levelData.layout[i],
         rotation: 0,
         shape: SHAPES[levelData.layout[i]],
+        mask: SHAPES[levelData.layout[i]],
         filled: levelData.layout[i] === "O" ? true : false,
         portalIndex: levelData.portals[i] ?? null,
     })));
 
     const rotate = (idx) => {
         grid[idx].rotation = rotateDeg(grid[idx].rotation);
-        grid[idx].shape = rotateMask(grid[idx].shape);
+        grid[idx].mask = rotateMask(grid[idx].mask);
     };
 
     const rotateDeg = (deg) => {
