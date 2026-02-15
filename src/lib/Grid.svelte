@@ -14,5 +14,7 @@
     #grid {
         display: grid;
         width: min(80vh, 80vw);
+        column-gap: 8px;
+        row-gap: 8px;
     }
 </style>

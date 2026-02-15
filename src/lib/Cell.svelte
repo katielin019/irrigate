@@ -7,11 +7,12 @@
  <div class="cell {data.portalIndex ? 'portal' : ''}"
     class:source={data.type === "O"}
     class:filled={data.filled}
+    data-shape="{data.shape}"
     id="cell-{data.x}-{data.y}"
-    onclick={onClick}>
-    <div class="tile-content"
-        style="transform: rotate({data.rotation}deg);">
-        {data.type}{data.shape}
+    onclick={onClick}
+    style="transform: rotate({data.rotation}deg);">
+    <div class="tile-content">
+        <!-- {data.type}{data.shape} -->
     </div>
 </div>
 
@@ -19,18 +20,20 @@
 
 <style>
     .cell {
+        --bw: 8px;
         aspect-ratio: 1;
-        border: 1px solid white;
+        border: var(--bw) solid black;
         display: flex;
         justify-content: space-around;
 		align-items: center;
         cursor: pointer;
         padding: 1.5rem;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .cell:not(.filled) {
-        background: #964B00;
-        color: white;
+        background: rgba(150, 75, 0, 0.95);
+        /* color: white; */
     }
 
     .filled {
@@ -38,12 +41,66 @@
         color: black;
     }
 
-    .portal {
-        background: purple;
+    .cell[data-shape="1"] { border-top: 0; }
+    .cell[data-shape="2"] { border-right: 0; }
+    .cell[data-shape="4"] { border-bottom: 0; }
+    .cell[data-shape="8"] { border-left: 0; }
+
+    .cell[data-shape="3"] {
+        border-top: 0;
+        border-right: 0;
     }
+
+    .cell[data-shape="5"] {
+        border-top: 0;
+        border-bottom: 0;
+    }
+
+    .cell[data-shape="7"] {
+        border-width: 0;
+        border-left-width: var(--bw);
+    }
+
+    .cell[data-shape="9"] {
+        border-top: 0;
+        border-left: 0;
+    }
+
+    .cell[data-shape="10"] {
+        border-right: 0;
+        border-left: 0;
+    }
+
+    .cell[data-shape="11"] {
+        border-width: 0;
+        border-bottom-width: var(--bw);
+    }
+
+    .cell[data-shape="12"] {
+        border-bottom: 0;
+        border-left: 0;
+    }
+
+    .cell[data-shape="13"] {
+        border-width: 0;
+        border-right-width: var(--bw);
+    }
+
+    .cell[data-shape="14"] {
+        border-width: 0;
+        border-top-width: var(--bw);
+    }
+
+    .cell[data-shape="15"] {
+        border-width: 0;
+    }
+
+    /* .portal {
+        background: purple;
+    } */
     
     .tile-content {
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		/* transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
         width: 100%;
         height: 100%;
         display: flex;

@@ -16,9 +16,14 @@
     })));
 
     const rotate = (idx) => {
-        grid[idx].rotation += 90;
+        grid[idx].rotation = rotateDeg(grid[idx].rotation);
         grid[idx].shape = rotateMask(grid[idx].shape);
     };
+
+    const rotateDeg = (deg) => {
+        const rotated = deg + 90;
+        return rotated;
+    }
 
     const rotateMask = (mask) => {
         // Shift bits: N->E, E->S, S->W, W->N
