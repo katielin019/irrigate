@@ -20,12 +20,17 @@
 <style>
     .cell {
         aspect-ratio: 1;
-        border: 1px solid blue;
+        border: 1px solid white;
         display: flex;
         justify-content: space-around;
 		align-items: center;
         cursor: pointer;
         padding: 1.5rem;
+    }
+
+    .cell:not(.filled) {
+        background: #964B00;
+        color: white;
     }
 
     .filled {

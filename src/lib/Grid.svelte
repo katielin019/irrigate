@@ -13,7 +13,6 @@
 <style>
     #grid {
         display: grid;
-        border: 1px solid blue;
         width: min(80vh, 80vw);
     }
 </style>

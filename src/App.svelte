@@ -8,8 +8,8 @@
     let grid = $state(Array.from({ length: ROWS * COLS }, (_, i) => ({
         x: Math.floor(i / COLS),
         y: i % COLS,
-        rotation: 0,
         type: levelData.layout[i],
+        rotation: levelData.initialRotation[i],
         shape: SHAPES[levelData.layout[i]],
         filled: levelData.layout[i] === "O" ? true : false,
         portalIndex: levelData.portals[i] ?? null,
