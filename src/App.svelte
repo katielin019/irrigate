@@ -11,6 +11,7 @@
         rotation: 0,
         type: levelData.layout[i],
         shape: SHAPES[levelData.layout[i]],
+        filled: levelData.layout[i] === "O" ? true : false,
         portalIndex: levelData.portals[i] ?? null,
     })));
 

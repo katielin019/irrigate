@@ -8,9 +8,3 @@
     <rect x="0" y="0" width="100" height="100" fill="white" />
     <circle cx="50" cy="50" r="30" fill={waterColor} />
 </svg>
-
-<style>
-    svg {
-        z-index: 100;
-    }
-</style>
