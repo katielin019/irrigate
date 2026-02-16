@@ -1,8 +1,8 @@
 import { CARDINALS, SHIFT } from "./data.js";
 
-const rotateDeg = (deg) => deg + 90;
+export const rotateDeg = (deg) => deg + 90;
 
-const rotateMask = (mask) => {
+export const rotateMask = (mask) => {
     // Shift bits: N->E, E->S, S->W, W->N
     // (mask << 1) performs the shift, then we wrap the 5th bit back to the 1st
     let rotated = (mask << 1);
@@ -10,32 +10,23 @@ const rotateMask = (mask) => {
     return (rotated & 16) ? (rotated % 16) | 1 : rotated;
 }
 
-
-const checkBounds = (grid, width, pos) => {
-    const bounds = new Map();
-    const nRows = grid.length / width;
-    const [r, c] = pos;
-    bounds.set("North", (r - 1 >= 0));
-    bounds.set("East", (c + 1 < width));
-    bounds.set("South", (r + 1 < nRows));
-    bounds.set("West", (c - 1 >= 0));
-    return bounds;
-}
-
-const getAdjCells = (grid, width, idx) => {
+export const getAdjCells = (grid, width, idx) => {
     const adj = new Map();
-    const [row, col] = getPosition(width, idx);
-    const inBounds = checkBounds(grid, width, [row, col]);
-    const openChannels = decodeMask(grid[idx].mask);
+    const row = Math.floor(idx / width);
+    const col = idx % width;
+    const totalRows = grid.length / width;
 
-    for (const key in CARDINALS) {
-        if (openChannels.get(key) && inBounds.get(key)) {
-            const [deltaR, deltaC] = SHIFT.get(key);
-            const pos = [row + deltaR, col + deltaC];
-            adj.set(key, getIdx(width, pos));
+    for (const [dir, bit] of Object.entries(CARDINALS)) {
+        if ((grid[idx].mask & bit) !== 0) {
+            const [dr, dc] = SHIFT[dir];
+            const nr = row + dr;
+            const nc = col + dc;
+
+            if (nr >= 0 && nr < totalRows && nc >= 0 && nc < width) {
+                const neighborIdx = nr * width + nc;
+                adj.set(dir, neighborIdx);
+            }
         }
     }
     return adj;
 }
-
-export { rotateDeg, rotateMask, getAdjCells };
