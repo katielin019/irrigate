@@ -24,21 +24,46 @@
         grid[idx].mask = rotateMask(grid[idx].mask);
     };
 
-    const fill = () => {
-        // start from source (origin), move outwards with bfs
-        // getAdjCells takes grid, width, idx as args
-        const neighbors = getAdjCells(grid, COLS, SOURCE);
+    function floodFill() {
         const q = new Queue();
         const visited = new Set();
-        neighbors.forEach((curr) => {
-            // check if curr's mask algns w/ source's mask
-        });
+
+        function handleFill(cell, origin) {
+            // compare cell mask and origin mask
+            // if aligned, update state so that cell is filled
+            // if we filled the cell, add to visited and return true
+            // else return false (don't add to visited because we could fill from a different direction)
+        }
+
+        q.enqueue(SOURCE);
+
+        // q.enqueue(SOURCE.getAdjCells());
+
+        while (!q.isEmpty()) {
+            // get next queue item
+            const origin = q.dequeue();
+            q.enqueue(curr.getAdjCells());
+            const curr = q.dequeue();
+        }
+
+        function processQueuedCell(origin, dequeuedItem) {
+
+        }
+
+
+
+        // // getAdjCells takes grid, width, idx as args
+        // const neighbors = getAdjCells(grid, COLS, SOURCE);
+
+        // neighbors.forEach((curr) => {
+        //     // check if curr's mask algns w/ source's mask
+        // });
     }
 
     const fillHelper = (curr, source) => {
         // see if we should fill the curr cell
         // if we do fill it, modify state accordingly
-        // and return true so the main function knows to queue it
+        // and return true so the main function knows to queue
 
     }
 
