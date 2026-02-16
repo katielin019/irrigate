@@ -23,6 +23,7 @@
     const rotate = (idx) => {
         grid[idx].rotation = rotateDeg(grid[idx].rotation);
         grid[idx].mask = rotateMask(grid[idx].mask);
+        floodFill();
     };
 
     const handshake = (sourceIdx, neighborIdx, dir) => {
@@ -46,42 +47,16 @@
             cell.filled = (i === SOURCE);
         });
 
-        // q contains ORIGIN cells; we visit neighbors
         const q = new Queue();
         q.enqueue(SOURCE);
-        // const visited = new Set();
 
         const visited = new Set();
         visited.add(SOURCE);
 
-        // function fill(cell, origin) {
-        //     // compare cell and origin
-        //     // make sure cell isn't already filled??? (maybe add this as a later optimization)
-        //     const shouldFill = handshake(origin, cell);
-        //     if (shouldFill) {
-        //         // visited.add(cell);
-        //         grid[cell].filled = true;
-        //         console.log(`Filling cell at index ${cell}`);
-        //     } else {
-        //         console.log(`Skipping cell at index ${cell}`);
-        //     }
-        //     return shouldFill;
-        // }
-
         while (!q.isEmpty()) {
-            // get next queue item
             const currIdx = q.dequeue();
-            // if (!grid[curr].filled) break;
 
-            // don't check neighbors if the current cell isn't filled?
-            const adjMap = neighbors(currIdx);
-
-            // // loop through adjacent cells; if any of them get filled, we add that cell to our queue
-            // adjacent.forEach((neighbor) => {
-            //     if (fill(neighbor, curr)) {
-            //         q.enqueue(neighbor);
-            //     }
-            // });
+            const adjMap = getAdjCells(grid, COLS, currIdx);
 
             for (const [dir, neighborIdx] of adjMap) {
                 if (visited.has(neighborIdx)) continue;
@@ -92,10 +67,6 @@
                     q.enqueue(neighborIdx);
                 }
             }
-        }
-
-        function neighbors(cellIdx) {
-            return getAdjCells(grid, COLS, cellIdx);
         }
     }
 

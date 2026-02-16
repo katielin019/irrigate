@@ -6,7 +6,6 @@ export const rotateMask = (mask) => {
     // Shift bits: N->E, E->S, S->W, W->N
     // (mask << 1) performs the shift, then we wrap the 5th bit back to the 1st
     let rotated = (mask << 1);
-    // if (rotated & 16) rotated = (rotated % 16) + 1;
     return (rotated & 16) ? (rotated % 16) | 1 : rotated;
 }
 
