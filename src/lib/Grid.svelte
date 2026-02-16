@@ -13,7 +13,7 @@
 <style>
     #grid {
         display: grid;
-        width: min(80vh, 80vw);
+        width: min(85vh, 90vw);
         column-gap: 8px;
         row-gap: 8px;
     }

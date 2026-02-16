@@ -17,6 +17,7 @@ working on a game prototype
     - [x] write function to check if `checkBounds()`
         - not just if `idx >= 0 && idx < grid.length` since we a cell that wraps to the next row isn't adjacent to a cell on the right border
 - [ ] add initial flood fill using breadth-first search (don't worry about fixing broken paths yet)
+    - my logic isn't logicing so i'm gonna simplify and skip the visited set for now
 - [ ] break paths and "drain" cells that are no longer connected to source
     - thinking about using a graph to trace flood fill steps, which should make it easy to prune broken paths (in theory)
 

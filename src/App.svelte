@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
     import Grid from "./lib/Grid.svelte";
     import { levelData, SHAPES } from "./lib/data.js";
     import { rotateDeg, rotateMask, getAdjCells } from "./lib/helpers.js";
@@ -24,37 +25,55 @@
         grid[idx].mask = rotateMask(grid[idx].mask);
     };
 
+    const compare = (source, neighbor) => {
+        return (grid[source].mask & grid[neighbor].mask) !== 0;
+    }
+
     function floodFill() {
+        console.log("Running flood fill");
+        // q contains ORIGIN cells; we visit neighbors
         const q = new Queue();
-        const visited = new Set();
+        q.enqueue(SOURCE);
+        // const visited = new Set();
 
         function fill(cell, origin) {
             // compare cell and origin
-            const shouldFill = true;
+            // make sure cell isn't already filled??? (maybe add this as a later optimization)
+            const shouldFill = compare(origin, cell);
             if (shouldFill) {
-                visited.add(cell);
-                grid[idx].filled = true;
+                // visited.add(cell);
+                grid[cell].filled = true;
+                console.log(`Filling cell at index ${cell}`);
+            } else {
+                console.log(`Skipping cell at index ${cell}`);
             }
             return shouldFill;
         }
 
-        q.enqueue(SOURCE);
-
         while (!q.isEmpty()) {
             // get next queue item
-            const origin = q.dequeue();
-            visited.add(origin);
-
-            q.enqueue(neighbors(origin));
             const curr = q.dequeue();
+            if (!grid[curr].filled) break;
 
-            if (fill(curr, origin)) q.enqueue(neighbors(curr));
+            // don't check neighbors if the current cell isn't filled?
+            const adjacent = neighbors(curr);
+
+            // loop through adjacent cells; if any of them get filled, we add that cell to our queue
+            adjacent.forEach((neighbor) => {
+                if (fill(neighbor, curr)) {
+                    q.enqueue(neighbor);
+                }
+            });
         }
 
         function neighbors(cell) {
             return getAdjCells(grid, COLS, cell);
         }
     }
+
+    onMount(() => {
+        floodFill();
+    });
 </script>
 
 <div id="app">
@@ -65,5 +84,9 @@
     :global(svg) {
         max-width: 400px;
         display: block;
+    }
+
+    #app {
+        width: 100%;
     }
 </style>

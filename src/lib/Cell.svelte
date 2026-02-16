@@ -12,7 +12,8 @@
     onclick={onClick}
     style="transform: rotate({data.rotation}deg);">
     <div class="tile-content">
-        <!-- {data.type}{data.shape} -->
+        <!-- {data.x}, {data.y} -->
+        { data.x * 7 + data.y }
     </div>
 </div>
 
@@ -110,5 +111,6 @@
         display: flex;
         justify-content: space-around;
 		align-items: center;
+        font-size: 0.7rem;
 	}
 </style>
