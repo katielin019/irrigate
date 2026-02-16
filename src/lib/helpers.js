@@ -1,47 +1,25 @@
 import { CARDINALS, SHIFT } from "./data.js";
 
-const rotateDeg = (deg) => {
-    const rotated = deg + 90;
-    return rotated;
-}
+const rotateDeg = (deg) => deg + 90;
 
 const rotateMask = (mask) => {
     // Shift bits: N->E, E->S, S->W, W->N
     // (mask << 1) performs the shift, then we wrap the 5th bit back to the 1st
     let rotated = (mask << 1);
-    if (rotated & 16) rotated = (rotated % 16) + 1;
-    return rotated;
+    // if (rotated & 16) rotated = (rotated % 16) + 1;
+    return (rotated & 16) ? (rotated % 16) | 1 : rotated;
 }
 
-const getIdx = (width, pos) => {
-    const [row, col] = pos;
-    return row * width + col;
-}
-
-const getPosition = (width, idx) => {
-    return [Math.floor(idx / width), idx % width];
-}
 
 const checkBounds = (grid, width, pos) => {
+    const bounds = new Map();
     const nRows = grid.length / width;
     const [r, c] = pos;
-    return {
-        "North": r - 1 >= 0,
-        "East":  c + 1 < width,
-        "South": r + 1 < nRows,
-        "West": c - 1 >= 0
-    };
-}
-
-// N = 1; E = 2; S = 4; W = 8;
-const decodeMask = (bitmask) => {
-    const directions = new Map();
-    for (const [dir, value] of Object.entries(CARDINALS)) {
-        directions.set(dir,
-            ((bitmask & value) === value)
-        );
-    }
-    return directions;
+    bounds.set("North", (r - 1 >= 0));
+    bounds.set("East", (c + 1 < width));
+    bounds.set("South", (r + 1 < nRows));
+    bounds.set("West", (c - 1 >= 0));
+    return bounds;
 }
 
 const getAdjCells = (grid, width, idx) => {
