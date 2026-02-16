@@ -28,13 +28,11 @@
 		align-items: center;
         cursor: pointer;
         padding: 1.5rem;
-        /* transition: border 0.3s; */
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .cell:not(.filled) {
         background: rgba(150, 75, 0, 0.95);
-        /* color: white; */
     }
 
     .filled {
