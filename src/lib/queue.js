@@ -4,7 +4,11 @@ class Queue {
     }
 
     enqueue(el) {
-        this.items.push(el);
+        if (Array.isArray(el)) {
+            this.items.push(...el);
+        } else {
+            this.items.push(el);
+        }
     }
 
     dequeue() {

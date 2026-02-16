@@ -28,50 +28,32 @@
         const q = new Queue();
         const visited = new Set();
 
-        function handleFill(cell, origin) {
-            // compare cell mask and origin mask
-            // if aligned, update state so that cell is filled
-            // if we filled the cell, add to visited and return true
-            // else return false (don't add to visited because we could fill from a different direction)
+        function fill(cell, origin) {
+            // compare cell and origin
+            const shouldFill = true;
+            if (shouldFill) {
+                visited.add(cell);
+                grid[idx].filled = true;
+            }
+            return shouldFill;
         }
 
         q.enqueue(SOURCE);
 
-        // q.enqueue(SOURCE.getAdjCells());
-
         while (!q.isEmpty()) {
             // get next queue item
             const origin = q.dequeue();
-            q.enqueue(curr.getAdjCells());
+            visited.add(origin);
+
+            q.enqueue(neighbors(origin));
             const curr = q.dequeue();
+
+            if (fill(curr, origin)) q.enqueue(neighbors(curr));
         }
 
-        function processQueuedCell(origin, dequeuedItem) {
-
+        function neighbors(cell) {
+            return getAdjCells(grid, COLS, cell);
         }
-
-
-
-        // // getAdjCells takes grid, width, idx as args
-        // const neighbors = getAdjCells(grid, COLS, SOURCE);
-
-        // neighbors.forEach((curr) => {
-        //     // check if curr's mask algns w/ source's mask
-        // });
-    }
-
-    const fillHelper = (curr, source) => {
-        // see if we should fill the curr cell
-        // if we do fill it, modify state accordingly
-        // and return true so the main function knows to queue
-
-    }
-
-    const otherFillHelper = (source, queue, visited) => {
-        // get neighbors
-        // loop through neighbors to see if masks align
-        // don't visit if in visited set
-        // return updated visited set and queue (should i just make a function and nest these items?)
     }
 </script>
 
