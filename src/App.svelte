@@ -1,7 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import Grid from "./lib/Grid.svelte";
-    import { levelData, SHAPES } from "./lib/data.js";
+    import { levelData, SHAPES, CARDINALS, CONNECTED } from "./lib/data.js";
     import { rotateDeg, rotateMask, getAdjCells } from "./lib/helpers.js";
     import Queue from "./lib/queue";
 
@@ -25,9 +25,14 @@
         grid[idx].mask = rotateMask(grid[idx].mask);
     };
 
-    const compare = (source, neighbor) => {
-        return (grid[source].mask & grid[neighbor].mask) !== 0;
+    // Check if the key matches the "CONNECTION" (inverse)?
+    const compare = (origin, curr) => {
+        
     }
+
+    // const compare = (source, neighbor) => {
+    //     return (grid[source].mask & grid[neighbor].mask) !== 0;
+    // }
 
     function floodFill() {
         console.log("Running flood fill");

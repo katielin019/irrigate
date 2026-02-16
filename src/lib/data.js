@@ -58,3 +58,10 @@ export const SHIFT = {
     South: [1, 0],
     West: [0, -1]
 }
+
+export const CONNECTED = {
+    North: "South",
+    East: "West",
+    South: "North",
+    West: "East",
+}

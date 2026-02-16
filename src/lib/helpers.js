@@ -45,7 +45,7 @@ const decodeMask = (bitmask) => {
 }
 
 const getAdjCells = (grid, width, idx) => {
-    const adj = [];
+    const adj = new Map();
     const [row, col] = getPosition(width, idx);
     const inBounds = checkBounds(grid, width, [row, col]);
     const openChannels = decodeMask(grid[idx].mask);
@@ -53,13 +53,11 @@ const getAdjCells = (grid, width, idx) => {
     for (const key in CARDINALS) {
         if (openChannels.get(key) && inBounds.get(key)) {
             const [deltaR, deltaC] = SHIFT.get(key);
-            adj.push([row + deltaR, col + deltaC]);
+            const pos = [row + deltaR, col + deltaC];
+            adj.set(key, getIdx(width, pos));
         }
     }
-
-    // returns an array of adjacent cell indices
-    // (contains 2-4 values since some cells have fewer adjacent cells)
-    return adj.map((pos) => getIdx(width, pos));
+    return adj;
 }
 
 export { rotateDeg, rotateMask, getAdjCells };
