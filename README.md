@@ -18,6 +18,10 @@ working on a game prototype
         - not just if `idx >= 0 && idx < grid.length` since we a cell that wraps to the next row isn't adjacent to a cell on the right border
 - [ ] add initial flood fill using breadth-first search (don't worry about fixing broken paths yet)
     - my logic isn't logicing so i'm gonna simplify and skip the visited set for now
+    - ok i wrote the implentation, but it's broken because i'm not doing bitmask comparison correctly
+        - also, i'm visiting cells i shouldn't be visiting! i only need to check cells that are in the direction of the open channels
+        - just fixed `getAdjCells` logic to only visit neighbors that can receive water
+            - now i need to figure out how to compare adjacent cells directionally with bitmasks
 - [ ] break paths and "drain" cells that are no longer connected to source
     - thinking about using a graph to trace flood fill steps, which should make it easy to prune broken paths (in theory)
 
@@ -30,3 +34,5 @@ working on a game prototype
 - don't actually want to use the "mask" to render borders of a cell, because we need to rotate the cell div to have the corners rotate too
     - use `data-shape` to set the initial shape of a cell, and then continually rotate it based on user input
     - still need to keep updating `mask` because it represents the encoded channels that we use to determine the path for executing the flood fill
+- ~~**important:** will have to adjust implementation of `getAdjCells` when portals are added since it uses short circuit evaluation based on `inBounds.get(key)` - should probably switch these~~
+    - actually wait i could just switch them now

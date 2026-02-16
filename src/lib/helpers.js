@@ -1,3 +1,5 @@
+import { CARDINALS, SHIFT } from "./data.js";
+
 const rotateDeg = (deg) => {
     const rotated = deg + 90;
     return rotated;
@@ -23,23 +25,38 @@ const getPosition = (width, idx) => {
 const checkBounds = (grid, width, pos) => {
     const nRows = grid.length / width;
     const [r, c] = pos;
-    // return an array of boolean values: [north, east, south, west]
-    return [
-        r - 1 >= 0,
-        c + 1 < width,
-        r + 1 < nRows,
-        c - 1 >= 0
-    ];
+    return {
+        "North": r - 1 >= 0,
+        "East":  c + 1 < width,
+        "South": r + 1 < nRows,
+        "West": c - 1 >= 0
+    };
+}
+
+// N = 1; E = 2; S = 4; W = 8;
+const decodeMask = (bitmask) => {
+    const directions = new Map();
+    for (const [dir, value] of Object.entries(CARDINALS)) {
+        directions.set(dir,
+            ((bitmask & value) === value)
+        );
+    }
+    return directions;
 }
 
 const getAdjCells = (grid, width, idx) => {
     const adj = [];
     const [row, col] = getPosition(width, idx);
     const inBounds = checkBounds(grid, width, [row, col]);
-    if (inBounds[0]) adj.push([row - 1, col]);
-    if (inBounds[1]) adj.push([row, col + 1]);
-    if (inBounds[2]) adj.push([row + 1, col]);
-    if (inBounds[3]) adj.push([row, col - 1]);
+    const openChannels = decodeMask(grid[idx].mask);
+
+    for (const key in CARDINALS) {
+        if (openChannels.get(key) && inBounds.get(key)) {
+            const [deltaR, deltaC] = SHIFT.get(key);
+            adj.push([row + deltaR, col + deltaC]);
+        }
+    }
+
     // returns an array of adjacent cell indices
     // (contains 2-4 values since some cells have fewer adjacent cells)
     return adj.map((pos) => getIdx(width, pos));
